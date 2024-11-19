@@ -1,11 +1,11 @@
 import SupportFunctions
 import TextaCon
-import PictaCon
+#import PictaCon
 import Scales
 import Symbols
 
 
-#TextCon.Run("₸H1Ⓢ ↿S ÅN ε×4M☧しE", "major", "C", consoleprint=True, remove0 = True)
+TextaCon.Run("₸H1Ⓢ ↿S ÅN ε×4M☧しE", "major", "C", consoleprint=True, remove0 = True)
 
 #Scales.Add("test", [1,2,3,4,5,6,7,8])
 #Scales.Add("testh", [1,2,3,4,5,6,7,8])

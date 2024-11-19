@@ -64,7 +64,7 @@ def Run(
     #List of all 12 notes
     note_list_full = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
  
-    scale_types = open("SUPPORTING_FILES\\scale_types.txt", "r")
+    scale_types = open("SUPPORTING_FILES\\Scales.txt", "r")
     scale_type_lines = scale_types.readlines()
  
     scale_types_a = []
