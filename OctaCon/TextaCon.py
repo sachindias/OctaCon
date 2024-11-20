@@ -351,7 +351,7 @@ def Run(
 
 #EXAMPLE
 '''
-TextCon("₸H1Ⓢ ↿S ÅN ε×4M☧しE", "Major", "C", 
+Run("₸H1Ⓢ ↿S ÅN ε×4M☧しE", "Major", "C", 
         remove0=True, 
         length = 0, 
         play=False, 
