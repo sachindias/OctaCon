@@ -3,7 +3,7 @@
 #REMOVE BLANK LINES
 #########################
 
-def removeBlankLines(filename):
+def RemoveBlankLines(filename):
     keep_lines = []
     
     with open("SUPPORTING_FILES/%s.txt" %filename, "r") as file:
