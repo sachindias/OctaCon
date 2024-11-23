@@ -49,6 +49,8 @@ def Run(
 
         return note_order, number_order
 
+
+
     ##############
     #INITIAL SETUP
     ##############
@@ -131,9 +133,6 @@ def Run(
     # Get pixel data & Convert RGB to Hex
     pixels = list(img.getdata())  # This returns a list of (R, G, B) tuples
     hex_colours = [f'{r:02x}{g:02x}{b:02x}' for r, g, b in pixels]
-    character_list = hex_colours
-
-    print(hex_colours, "\n")
 
     for count in range(len(hex_colours)):
         hex_colour = hex_colours[count]
@@ -251,7 +250,7 @@ def Run(
     if (consoleprint == True):
         print("\nHere is the order of notes:")
         for n in range(len(equation_list)):
-            print("[", n, "]", "[symbol = ", character_list[n], "]", equation_list[n])
+            print("[", n, "]", "[colour = #%s]" %hex_colours[n], equation_list[n])
 
     ########################
     #PRINTING TO A TEXT FILE
@@ -272,7 +271,7 @@ def Run(
         file.write("Full Information:\n")
         for n in range(len(hex_colours)):
             file.write("[%s]%s" %(n + 1, " " * int(7 - int(str(np.log10(n + 1))[0]))))
-            file.write("[symbol = %s]  " %(character_list[n]))
+            file.write("[colour = #%s]  " %(hex_colours[n]))
             file.write("%s" %equation_list[n])
             file.write("\n")
 
@@ -324,8 +323,8 @@ def Run(
 
                     else:
                         print('\n\033[1;33m' + "WARNING:",
-                              '\033[1;37m' + "duplicates notes were found and removed in '%s', this can occur for chords" %
-                              character_list[n])
+                              '\033[1;37m' + "duplicates notes were found and removed in '#%s', this can occur for chords" %
+                              hex_colours[n])
 
             if (chord == True):
                 end_of_chord_list = np.flip(chord_used_list[:-1])

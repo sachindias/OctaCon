@@ -5,7 +5,7 @@ Input Colours:
 Scale: C Major - Suggested Time Signature: 6/4
 
 Full Information:
-[1]       [symbol = 000000]  ['C', 'C', 'C', 'C', 'C', 'C']
-[2]       [symbol = 009247]  ['D', 'D', 'D', 'D', 'C', 'C']
-[3]       [symbol = 000000]  ['C', 'C', 'C', 'C', 'C', 'C']
-[4]       [symbol = 0000b0]  ['C', 'C', 'C', 'E', 'B', 'C']
+[1]       [colour = #000000]  ['C', 'C', 'C', 'C', 'C', 'C']
+[2]       [colour = #009247]  ['D', 'D', 'D', 'D', 'C', 'C']
+[3]       [colour = #000000]  ['C', 'C', 'C', 'C', 'C', 'C']
+[4]       [colour = #0000b0]  ['C', 'C', 'C', 'E', 'B', 'C']
