@@ -1,0 +1,11 @@
+Input Colours: 
+
+#000000 #009247 #000000 #0000B0 
+
+Scale: C Major - Suggested Time Signature: 6/4
+
+Full Information:
+[1]       [colour = #000000]  ['C', 'C', 'C', 'C', 'C', 'C']
+[2]       [colour = #009247]  ['D', 'D', 'D', 'D', 'C', 'C']
+[3]       [colour = #000000]  ['C', 'C', 'C', 'C', 'C', 'C']
+[4]       [colour = #0000b0]  ['C', 'C', 'C', 'E', 'B', 'C']
