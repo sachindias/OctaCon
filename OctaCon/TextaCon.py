@@ -1,5 +1,3 @@
-import numpy as np
-
 import Setup
 import OctalConvertor
 import Processing

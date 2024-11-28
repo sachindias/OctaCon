@@ -1,5 +1,3 @@
-import numpy as np
-
 import Setup
 import Processing
 import Playing
