@@ -12,7 +12,7 @@ def Add(symbol, octal):
         file.write("\n" + input_string)
 
         
-    SupportFunctions.removeBlankLines("Symbols")
+    SupportFunctions.RemoveBlankLines("Symbols")
     
 
 #########################
@@ -34,7 +34,7 @@ def Delete(symbol):
         for n in range(len(keep_lines)):
             file.write(keep_lines[n])
     
-    SupportFunctions.removeBlankLines("Symbols")
+    SupportFunctions.RemoveBlankLines("Symbols")
     
     
 #########################
@@ -80,4 +80,4 @@ def Amend(change, symbol, name = False, octal = False):
             for n in range(len(keep_lines)):
                 file.write(keep_lines[n])          
         
-    SupportFunctions.removeBlankLines("Symbols")
+    SupportFunctions.RemoveBlankLines("Symbols")

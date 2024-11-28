@@ -15,7 +15,7 @@ def Add(scale, metadata):
         file.write("\n" + input_string)
 
         
-    SupportFunctions.removeBlankLines("Scales")
+    SupportFunctions.RemoveBlankLines("Scales")
 
 #########################
 #DELETE FROM SCALES
@@ -36,7 +36,7 @@ def Delete(scale):
         for n in range(len(keep_lines)):
             file.write(keep_lines[n])
     
-    SupportFunctions.removeBlankLines("Scales")
+    SupportFunctions.RemoveBlankLines("Scales")
 
 #########################
 #AMEND SCALES
@@ -83,4 +83,4 @@ def Amend(change, scale, name = False, position = False, note = False):
             for n in range(len(keep_lines)):
                 file.write(keep_lines[n])          
         
-    SupportFunctions.removeBlankLines("Scales")
+    SupportFunctions.RemoveBlankLines("Scales")
