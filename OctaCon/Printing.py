@@ -1,11 +1,12 @@
 import numpy as np
 from mido import Message, MidiFile, MidiTrack
 
+
 ########################
 #PRINTING TO THE CONSOLE
 ########################
 
-def PrintConsole(consoleprint, input_list, equation_list, text_options):
+def Console(consoleprint, input_list, equation_list, text_options):
 
     if (consoleprint == True):
         print("\nHere is the order of notes:")
@@ -14,22 +15,22 @@ def PrintConsole(consoleprint, input_list, equation_list, text_options):
 
 
 
-
 ########################
 #PRINTING TO A TEXT FILE
 ########################
 
-def PrintTextFile(
+def TextFile(
 
         root,
         scale,
+
         textprint,
         textprint_location,
+
         input_list,
         equation_list,
         text_options
-
-    ):
+        ):
 
     if (textprint != False):
 
@@ -39,7 +40,7 @@ def PrintTextFile(
         if (text_options[0] == "colour"):
             input_list = [item.upper() for item in input_list]
 
-        file.write("Input %s: \n\n" %(text_options[0].capitalize() + "s"))
+        file.write("Input %s: \n" %(text_options[0].capitalize() + "s"))
         for n in range(len(input_list)):
             file.write("%s%s%s" %(text_options[1], input_list[n], text_options[2]))
 
@@ -57,12 +58,11 @@ def PrintTextFile(
 
 
 
-
 ########################
 #PRINTING TO A MIDI FILE
 ########################
 
-def PrintMIDIFile(
+def MIDIFile(
 
     root,
 
@@ -79,7 +79,6 @@ def PrintMIDIFile(
 
     input_list,
     text_options
-
     ):
 
     if (MIDIprint != False):
@@ -140,4 +139,3 @@ def PrintMIDIFile(
                 chord_used_list.append(MIDI_pos)
 
         mid.save("%s%s.mid" % (MIDIprint_location, file_name_MIDI))
-

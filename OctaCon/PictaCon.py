@@ -1,11 +1,15 @@
 import numpy as np
-import winsound
-from time import sleep
-import sys
-from mido import Message, MidiFile, MidiTrack
-from PIL import Image
-import Printing
 
+import Setup
+import Processing
+import Playing
+import Printing
+import OctalConvertor
+
+
+####################################
+#THE OCTAL NOTE CONVERTOR - PICTACON
+####################################
 
 def Run(
 
@@ -25,256 +29,51 @@ def Run(
         chord = False,
         notelength = 2,
         veloctiy = 100
+        ):
 
-    ):
-
-    ##############  #The main heart of the code, this takes a character
-    #THE CONVERTOR  #and turns it into a note in the defined scale
-    ##############  #inputs require the character, list of notes in the scale [final_note_list]
-
-    def octal_note_converter(octal_no, final_note_list):
-
-        note_order = []
-        number_order = []
-
-        if (len(octal_no) < 8):
-            length_to_add = 8 - len(octal_no)
-        else:
-            length_to_add = 0
-
-        octal_equivalent = "0" * length_to_add + octal_no
-
-        for h in range(len(octal_equivalent)):
-            note_order.append(final_note_list[int(octal_equivalent[h])])
-            number_order.append(octal_equivalent[h])
-
-        return note_order, number_order
-
-
-
-    ##############
     #INITIAL SETUP
-    ##############
+    note_list_full, scale_types_a, note_pos, MIDI_notes, MIDI_numbers, final_note_list \
+        = Setup.InitialSetup()
 
-    # List of all 12 notes
-    note_list_full = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+    #SETS THE ROOT NOTE TO USE & BUILDS THE SCALE OF 8 NOTES
+    final_note_list = Setup.ScaleBuilder(scale, root,
+                                            scale_types_a, note_list_full,
+                                            note_pos, final_note_list)
 
-    scale_types = open("SUPPORTING_FILES\\Scales.txt", "r")
-    scale_type_lines = scale_types.readlines()
+    #TURNS THE PICTURE INTO A SERIES OF NOTES (AND NOTE POSITIONS)
+    equation_list, equation_list_numbers, hex_colours = OctalConvertor.Pictures(filename, final_note_list)
 
-    scale_types_a = []
-    note_pos = []
+    #PROCESSING INTO THE FORMAT THE USER WANTS
+    #PART 1 - REMOVES EXCESS NOTES
+    equation_list, equation_list_numbers = Processing.RemoveExcessNotes(equation_list, equation_list_numbers, remove0)
+    #PART 2 - ADDING NOTES IN
+    equation_list, equation_list_numbers = Processing.AddExtraNotes(root, length, equation_list, equation_list_numbers)
 
-    for x in scale_type_lines:
-        scale_types_a.append(x.split('   ')[0])
-        note_pos_temp = []
-        for n in range(8):
-            note_pos_temp.append(int(x.split('   ')[n + 1]))
-        note_pos.append(note_pos_temp)
-
-    MIDI_notes = np.array(["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B",
-                           "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"])
-    MIDI_numbers = np.array([x for x in range(48, 72)])
-
-    final_note_list = []
-
-    ##########################
-    #SETS THE ROOT NOTE TO USE
-    ##########################
-
-    # Finds the correct scale from the list
-    scale_name_no = np.where(scale.lower() == np.array(scale_types_a))
-    try:
-        scale_tester = scale_name_no[0][0]
-    except Exception:
-        print('\n\033[1;31;48m' + "Error:", '\033[1;37;0m' + "scale not found\n")
-
-    if (len(root) < 3):
-        root = root.upper()
-
-        if (len(root) == 2):
-            if (root[1] == "B"):
-                if (root[0] == "A"):
-                    root = "G" + "#"
-                else:
-                    root = chr(ord(root[0]) - 1) + "#"
-
-        root_pos = np.where(np.array(note_list_full) == root)
-
-        if (len(root_pos[0]) != 0):
-            root_pos = root_pos[0][0]
-            new_note_list = note_list_full[root_pos:] + note_list_full[:root_pos]
-            note_pos_new = note_pos[scale_name_no[0][0]]
-
-            for t in range(len(note_pos_new)):
-                final_note_list.append(new_note_list[note_pos_new[t] - 1])
-
-        if (len(final_note_list) == 0):
-            print('\n\033[1;31m' + "Error:", '\033[1;37m' + "root note invalid\n")
-
-    else:
-        print('\n\033[1;31m' + "Error:", '\033[1;37m' + "root note invalid\n")
-
-
-
-    ##########################################
-    #GETTING THE IMAGE TO TRANSFORM INTO NOTES
-    ##########################################
-
-    equation_list = [] #saves all the notes
-    equation_list_numbers = [] #saves all the number positions of each note in the scale
-
-    # Load the image
-    img = Image.open("INPUT_PICTURES\%s" %filename)
-
-    # Convert image to RGB if not already in RGB mode
-    if (img.mode != 'RGB'):
-        img = img.convert('RGB')
-
-    # Get pixel data & Convert RGB to Hex
-    pixels = list(img.getdata())  # This returns a list of (R, G, B) tuples
-    hex_colours = [f'{r:02x}{g:02x}{b:02x}' for r, g, b in pixels]
-
-    for count in range(len(hex_colours)):
-        hex_colour = hex_colours[count]
-        octal_no = oct(int(hex_colour, 16))[2:]
-        note_order, number_order = octal_note_converter(octal_no, final_note_list)
-        equation_list.append(note_order)
-        equation_list_numbers.append(number_order)
-
-
-
-    ##########################################################################
-    #PROCESSING INTO THE FORMAT THE USER WANTS - PART 1 - REMOVES EXCESS NOTES
-    ##########################################################################
-
-    measures_array = np.array([0, 0, 0, 0, 0, 0])
-
-    for i in range(len(measures_array)):
-        n = 0
-        while (n < (len(equation_list_numbers))):
-            if (int(equation_list_numbers[n][i]) != 0):
-                measures_array[i] = 1
-            n = n + 1
-
-    if (remove0 == True):
-        new_equation_list = [None] * len(equation_list)
-        new_equation_list_numbers = [None] * len(equation_list_numbers)
-
-        try:
-            removal_loop_no = np.where(measures_array == 1)[0][0]
-            for n in range(len(equation_list)):
-                new_equation_list[n] = equation_list[n][removal_loop_no:]
-                new_equation_list_numbers[n] = equation_list_numbers[n][removal_loop_no:]
-
-            equation_list = new_equation_list
-            equation_list_numbers = new_equation_list_numbers
-        except Exception:
-            (1 == 1)
-
-
-
-
-    #####################################################################
-    #PROCESSING INTO THE FORMAT THE USER WANTS - PART 2 - ADDING NOTES IN
-    #####################################################################
-
-    if (length != False):
-        if (length > len(equation_list[0])):
-            length_to_add = length - len(equation_list[0])
-            extra_notes_to_add = [root] * length_to_add
-            extra_numbers_to_add = ["0"] * length_to_add
-
-            new_equation_list = [None] * len(equation_list)
-            new_equation_list_numbers = [None] * len(equation_list_numbers)
-
-            for n in range(len(equation_list)):
-                new_equation_list[n] = np.concatenate((extra_notes_to_add, equation_list[n]))
-                new_equation_list_numbers[n] = np.concatenate((extra_numbers_to_add, equation_list_numbers[n]))
-
-            equation_list = new_equation_list
-            equation_list_numbers = new_equation_list_numbers
-
-
-
-
-    #######################
     #PLAYING IN THE CONSOLE
-    #######################
-
-    if (play == True):
-
-        if (len(equation_list) > 0):
-            space_len = 0
-            percentage_norm = 100 / ((len(hex_colours) * (len(equation_list[0]) + 1) - 1))
-
-        print("\nNotes Will Be Played Below:")
-        sleep(1)
-        j = 1
-
-        for n in range(len(hex_colours)):
-            if (n > 0):
-                sys.stdout.write('\r')
-                sys.stdout.write("[%-40s] %d%%   Note: %s" %(
-                '=' * round(0.4 * percentage_norm * (space_len + j + 1)), percentage_norm * (space_len + j + 2), "  "))
-                space_len = len(equation_list[0]) * n + n
-
-                winsound.PlaySound("Notes\\space", winsound.SND_FILENAME)
-
-            for j in range(len(equation_list[0])):
-                sys.stdout.write('\r')
-                sys.stdout.write("[%-40s] %d%%   Note: %s" %(
-                '=' * round(0.4 * percentage_norm * (space_len + j + 1)), percentage_norm * (space_len + j + 1),
-                final_note_list[int(equation_list_numbers[n][j])]))
-                sys.stdout.flush()
-
-                equation_sound_note = final_note_list[int(equation_list_numbers[n][j])]
-                loc_root = np.where(np.array(note_list_full) == "G#")[0][0]
-
-                if (np.where(np.array(note_list_full) == equation_sound_note)[0][0] < loc_root):
-                    winsound.PlaySound("Notes\\high_%s" %equation_sound_note, winsound.SND_FILENAME)
-                elif (np.where(np.array(note_list_full) == equation_sound_note)[0][0] > loc_root):
-                    winsound.PlaySound("Notes\\low_%s" %equation_sound_note, winsound.SND_FILENAME)
-                elif (np.where(np.array(note_list_full) == equation_sound_note)[0][0] == loc_root and int(
-                        equation_list_numbers[n][j]) == 7):
-                    winsound.PlaySound("Notes\\high_%s" %equation_sound_note, winsound.SND_FILENAME)
-                elif (np.where(np.array(note_list_full) == equation_sound_note)[0][0] == loc_root):
-                    winsound.PlaySound("Notes\\low_%s" %equation_sound_note, winsound.SND_FILENAME)
-                sleep(0.2)
-
-        print("\n")
-
+    Playing.Console(hex_colours, play, equation_list, equation_list_numbers, final_note_list, note_list_full)
 
     #PRINTING TO THE CONSOLE
-    Printing.PrintConsole(consoleprint, hex_colours, equation_list, ["colour", "#"])
+    Printing.Console(consoleprint, hex_colours, equation_list, ["colour", "#"])
 
     #PRINTING TO A TEXT FILE
-    Printing.PrintTextFile(root, scale,
+    Printing.TextFile(root, scale,
                            textprint, textprint_location,
                            hex_colours, equation_list, ["colour", "#", " "])
 
     #PRINTING TO A MIDI FILE
-    Printing.PrintMIDIFile(root,
+    Printing.MIDIFile(root,
             MIDIprint, MIDIprint_location, chord, notelength, veloctiy,
             MIDI_notes, MIDI_numbers, equation_list, equation_list_numbers,
             hex_colours, "#")
-
-    ############################
-    #FINAL STEPS OF THE FUNCTION
-    ############################
-
-    equation_list = np.array(equation_list)
-    equation_list_numbers = np.array(equation_list_numbers)
 
 ################
 #END OF FUNCTION
 ################
 
-
-
+#EXAMPLE
 Run("Tester2.png", "Major", "C",
         remove0=True,
-        length = 6,
+        length = 2,
         play=False,
         consoleprint = True,
         textprint="Test_func",

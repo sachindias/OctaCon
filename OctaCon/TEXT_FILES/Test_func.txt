@@ -1,5 +1,4 @@
 Input Colours: 
-
 #000000 #009247 #000000 #0000B0 
 
 Scale: C Major - Suggested Time Signature: 6/4
