@@ -1,5 +1,9 @@
-# OctaCon
-The Octal Music Convertor - turning text and pictures into music 🎵
+# OctaCon 🎵
+The Octal Music Convertor - converting text and pictures into music.
+
+There are two functions for different conversions:
+ - **TextaCon** - converting text into music.
+ - **PictaCon** - converting pictures into music.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -22,11 +26,92 @@ The Octal Music Convertor - turning text and pictures into music 🎵
 
 ## Basic Usage
 
-### TextaCon
+In order to use TextaCon you need a phrase, scale type and root note.
+It can be implemented as below for the :
+
+```
+Import TextaCon
+TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C")
+```
+
+In order to use PictaCon you need an image, scale type and root note.
+The image will need to in the INPUT_PICTURES folder and the filename (including file type e.g. ".png") will be needed to run the code. 
+It can be implemented as below:
+
+```
+Import PictaCon
+PictaCon.Run(filename="Tester.png", scale="Major", root="C")
+```
+
+Whilst the code will execute in the two above examples, **there won't be outputs without additional parameters**. These parameters work the same for both TextaCon and PictaCon.
+
+### Printing to the Console
+
+To print a summary of notes to the console, you simply need to change the `consoleprint` parameter to `True`:
+
+```
+Import TextaCon
+TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
+             consoleprint = True)
+```
+
+### Printing to a Text File
+
+To print the summary to a text file, you will need to provide a filename for `textprint` and set the location to save the file to. 
+
+```
+Import TextaCon
+TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
+             textprint="Test_func",
+             textprint_location = "TEXT_FILES\\")
+```
 
 
+This will save the summary to TEXT_FILES\\Test_func.txt.
 
-### PictaCon
+### Printing to a MIDI File
+
+Even more useful that printing a summary of the notes, is being able to play them via MIDI. 
+As with a text file, you will need to provide a filename for `MIDIprint` and set the location to save the file to.
+
+You will also need to indicate whether you want the notes for each character or pixel to be played as individual sequential notes or chords. 
+This can be set by changing `chord` to `True` for chords and `False` for individual notes.
+The default is for individual notes.
+
+There are also options to change the length and velocity of notes. 
+
+Velocity is set to a default of 100, but can be changed from 0 to 127 using `veloctiy` and changing the integer number.
+
+The `notelength` is set at a default of 2, indicating 
+>THIS NEEDS FILLING IN
+
+```
+Import TextaCon
+TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
+             MIDIprint="Test_func",
+             MIDIprint_location = "MIDI_FILES\\",
+             chord = False,
+             notelength = 2,
+             veloctiy = 50)
+```
+
+This will save the MIDI file to TEXT_FILES\\Test_func.mid, with individual notes of 50 velocity and length XXX.
+
+### General
+
+      Run("₸H1Ⓢ ↿S ÅN ε×4M☧しE", "Major", "C",
+              remove0=True, 
+              length = 0, 
+              play=False, 
+              consoleprint = True,
+              textprint="Test_func",
+              textprint_location = "TEXT_FILES\\",
+              MIDIprint="Test_func",
+              MIDIprint_location = "MIDI_FILES\\",
+              chord = False,
+              notelength = 2,
+              veloctiy = 50
+              )
 
 ## Theory
 The basic concept behind OctaCon is to convert text and pictures to music using octal (see https://en.wikipedia.org/wiki/Octal). 
@@ -71,6 +156,6 @@ We can write the values of these scales in hexadecimal, which gives us FF for wh
 Stringing these together and adding a "#" we can create a unique code for each colour. 
 As white is FF for each scale, we get #<span style="color: red;">FF</span><span style="color: green;">FF</span><span style="color: blue;">FF</span>.
 4. Ignoring the "#", we can convert the hexadecimal number into octal.
-5. Follow steps 5 - 8 for TextaCon. 
+5. Follow steps 5 - 8 from TextaCon above. 
 
 

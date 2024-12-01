@@ -69,7 +69,7 @@ def Run(
 ################
 
 #EXAMPLE
-Run("Tester2.png", "Major", "C",
+Run(filename="Tester2.png", scale="Major", root="C",
         remove0=True,
         length = 2,
         play=False,
