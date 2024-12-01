@@ -9,7 +9,7 @@ There are two functions for different conversions:
 - [Installation](#installation)
 - [Python Dependancies](#python-dependancies)
 - [Basic Usage](#basic-usage)
-- [Theory](#theory)
+- [Concept](#concept)
 
 ## Installation
 1. Clone the repository:
@@ -26,11 +26,17 @@ There are two functions for different conversions:
 
 ## Basic Usage
 
+Start by importing both scripts:
+
+```
+Import TextaCon
+Import PictaCon
+```
+
 In order to use TextaCon you need a phrase, scale type and root note.
 It can be implemented as below for the :
 
 ```
-Import TextaCon
 TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C")
 ```
 
@@ -39,7 +45,6 @@ The image will need to in the INPUT_PICTURES folder and the filename (including 
 It can be implemented as below:
 
 ```
-Import PictaCon
 PictaCon.Run(filename="Tester.png", scale="Major", root="C")
 ```
 
@@ -50,7 +55,6 @@ Whilst the code will execute in the two above examples, **there won't be outputs
 To print a summary of notes to the console, you simply need to change the `consoleprint` parameter to `True`:
 
 ```
-Import TextaCon
 TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
              consoleprint = True)
 ```
@@ -60,7 +64,6 @@ TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
 To print the summary to a text file, you will need to provide a filename for `textprint` and set the location to save the file to. 
 
 ```
-Import TextaCon
 TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
              textprint="Test_func",
              textprint_location = "TEXT_FILES\\")
@@ -86,7 +89,6 @@ The `notelength` is set at a default of 2, indicating
 >THIS NEEDS FILLING IN
 
 ```
-Import TextaCon
 TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
              MIDIprint="Test_func",
              MIDIprint_location = "MIDI_FILES\\",
@@ -97,23 +99,43 @@ TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
 
 This will save the MIDI file to TEXT_FILES\\Test_func.mid, with individual notes of 50 velocity and length XXX.
 
-### General
+### Playing in the Console
 
-      Run("₸H1Ⓢ ↿S ÅN ε×4M☧しE", "Major", "C",
-              remove0=True, 
-              length = 0, 
-              play=False, 
-              consoleprint = True,
-              textprint="Test_func",
-              textprint_location = "TEXT_FILES\\",
-              MIDIprint="Test_func",
-              MIDIprint_location = "MIDI_FILES\\",
-              chord = False,
-              notelength = 2,
-              veloctiy = 50
-              )
+If you want to instead hear the notes in the console you can do so by setting `play` to `True`:
 
-## Theory
+```
+TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
+             play = True)
+```
+
+### Adding or Removing Empty Notes
+
+There are two final options for both Run functions: 
+1. To remove 0s from the beginning of an octal number, if the code for every character or pixel begins with 0s.
+This affects codes such as 00115 or 00103. 
+There is no difference in terms of octal writing these as 115 and 103 instead.  
+However this will not be possible if one of the one of the octal numbers is 11111 for instance. 
+ 
+```
+TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
+              remove0=True)
+```
+
+2. To add extra 0s to the front of the octal number. 
+This can be useful for instance, if you want to print the MIDI files to have a particular number of notes per bar. 
+Simply specify the number of notes you want as an integer for the parameter `length`.
+**This will not work if the length is less than the current number of digits in the octal number.**
+
+```
+TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
+              length = 3)
+```
+
+
+
+
+
+## Concept
 The basic concept behind OctaCon is to convert text and pictures to music using octal (see https://en.wikipedia.org/wiki/Octal). 
 This is particularly beneficial for music as octal is a base-8 numerical system and many scales have 8 notes (from root note to octave). 
 
