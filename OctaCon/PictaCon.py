@@ -25,7 +25,7 @@ def Run(
         MIDIprint = False,
         MIDIprint_location = "",
         chord = False,
-        notelength = 2,
+        notelength = 1/4,
         veloctiy = 100
         ):
 
@@ -69,9 +69,9 @@ def Run(
 ################
 
 #EXAMPLE
-Run("Tester2.png", "Major", "C",
+Run(filename="Tester2.png", scale="Major", root="C",
         remove0=True,
-        length = 2,
+        length = 6,
         play=False,
         consoleprint = True,
         textprint="Test_func",
@@ -79,7 +79,7 @@ Run("Tester2.png", "Major", "C",
         MIDIprint="Test_func",
         MIDIprint_location = "MIDI_FILES\\",
         chord = False,
-        notelength = 2,
+        notelength = 1/8,
         veloctiy = 50
         )
 

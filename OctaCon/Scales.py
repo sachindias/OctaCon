@@ -5,12 +5,11 @@ import SupportFunctions
 #########################
 
 #Metadata should be in the form [1,2,3,4,5,6,7,8]
-def Add(scale, metadata):
+def Add(scale, semi_tone_location):
     
     input_string = scale
     for n in range(8):
-        input_string = input_string + "   " + str(metadata[n])
-    
+        input_string = input_string + "   " + str(semi_tone_location[n])
     with open("SUPPORTING_FILES/Scales.txt", "a") as file:
         file.write("\n" + input_string)
 
@@ -57,7 +56,7 @@ def Amend(change, scale, name = False, position = False, note = False):
                     keep_lines.append(line) 
                 
                 elif (name_old == scale):
-                    keep_lines.append(name + "   " + line.split(name_old)[1])
+                    keep_lines.append(name + line.split(name_old)[1])
 
         with open("SUPPORTING_FILES/Scales.txt", "w") as file:
             for n in range(len(keep_lines)):

@@ -25,7 +25,7 @@ def Run(
             MIDIprint = False,
             MIDIprint_location = "",
             chord = False,
-            notelength = 2,
+            notelength = 1/4,
             veloctiy = 100
             ):
 
@@ -69,17 +69,17 @@ def Run(
 ################
 
 #EXAMPLE
-Run("₸H1Ⓢ ↿S ÅN ε×4M☧しE", "Major", "C",
-        remove0=True, 
-        length = 0, 
-        play=False, 
+Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
+        remove0=True,
+        length = 0,
+        play=False,
         consoleprint = True,
         textprint="Test_func",
         textprint_location = "TEXT_FILES\\",
         MIDIprint="Test_func",
         MIDIprint_location = "MIDI_FILES\\",
         chord = False,
-        notelength = 2,
+        notelength = 1/4,
         veloctiy = 50
         )
 
