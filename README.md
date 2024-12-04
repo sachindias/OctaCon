@@ -227,6 +227,6 @@ We can write the values of these scales in hexadecimal, which gives us FF for wh
 Stringing these together and adding a "#" we can create a unique code for each colour. 
 As white is FF for each scale, we get #<span style="color: red;">FF</span><span style="color: green;">FF</span><span style="color: blue;">FF</span>.
 4. Ignoring the "#", we can convert the hexadecimal number into octal.
-5. Follow steps 5-8 from TextaCon above. 
+5. Following steps 5-8 from TextaCon above we again can convert our octal numbers into music. 
 
 
