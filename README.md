@@ -1,4 +1,11 @@
+<div style="text-align: center;">
+<img src="OctaCon/SUPPORTING_FILES/OctaConSymbol.png" alt="OctaConSymbol" style="width:15%;" /> 
+</div>
+
+_______
 # OctaCon 🎵
+
+
 The Octal Music Convertor - converting text and pictures into music.
 
 There are two functions for different conversions:
