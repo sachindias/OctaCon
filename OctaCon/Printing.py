@@ -113,7 +113,7 @@ def MIDIFile(
                 if (chord == False):
                     track.append(Message('note_on', channel=0, note=MIDI_numbers[MIDI_pos], velocity=veloctiy, time=0))
                     track.append(Message('note_on', channel=0, note=MIDI_numbers[MIDI_pos], velocity=0,
-                                         time=int(1920 / 4 / notelength)))
+                                         time=int(1920 * notelength)))
 
                 elif (chord == True):
                     if (MIDI_pos not in chord_used_list):
@@ -131,7 +131,7 @@ def MIDIFile(
                 end_of_chord_list = np.flip(chord_used_list[:-1])
 
                 track.append(Message('note_on', channel=0, note=MIDI_numbers[MIDI_pos], velocity=0,
-                                     time=int(1920 / 4 / notelength)))
+                                     time=int(1920 * notelength)))
                 for end in range(len(end_of_chord_list)):
                     track.append(
                         Message('note_on', channel=0, note=MIDI_numbers[end_of_chord_list[end]], velocity=0, time=0))

@@ -90,19 +90,18 @@ There are also options to change the length and velocity of notes.
 
 Velocity is set to a default of 100, but can be changed from 0 to 127 using `veloctiy` and changing the integer number.
 
-The `notelength` is set at a default of 2, indicating 
->THIS NEEDS FILLING IN
+The `notelength` is set at a default of 1/4, indicating that each note lasts for one quarter of a bar.
 
 ```
 TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
              MIDIprint="Test_func",
              MIDIprint_location = "MIDI_FILES\\",
              chord = False,
-             notelength = 4,
+             notelength = 1/2,
              veloctiy = 50)
 ```
 
-This will save the MIDI file to TEXT_FILES\\Test_func.mid, with individual notes of 50 velocity and length XXX.
+This will save the MIDI file to TEXT_FILES\\Test_func.mid, with individual notes of 50 velocity and length 1/2 of a bar (or 2 notes per bar).
 
 ### Playing in the Console
 
@@ -195,7 +194,7 @@ The main difference concerns how we get from text or pictures to octal in the fi
 ### TextaCon
 The process follows the flowchart and is described below:
 
-<img src="OctaCon/SUPPORTING_FILES/TextaCon_flowchart.png" alt="TextaCon Flowchart" style="width:50%;" />
+<img src="OctaCon/SUPPORTING_FILES/TextaCon_flowchart.png" alt="TextaCon Flowchart" style="width:100%;" />
 
 1. We need to start with some text, the word MUSIC in this case.
 2. Next, we decompose this into the individual letters.
@@ -218,7 +217,7 @@ Taking the example of M again, D = 1 and A = 5, meaning our notes are DDA.
 ### PictaCon
 The process follows the flowchart and is described below:
 
-<img src="OctaCon/SUPPORTING_FILES/PictaCon_flowchart.png" alt="PictaCon Flowchart" style="width:50%;" />
+<img src="OctaCon/SUPPORTING_FILES/PictaCon_flowchart.png" alt="PictaCon Flowchart" style="width:100%;" />
 
 1. We need to start with a picture, 4 coloured pixel in this case.
 2. Next, we decompose this into the individual pixels, going left → right and top → bottom.
