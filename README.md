@@ -170,7 +170,7 @@ The below code:
 - Adds a test scale with locations: 1, 2, 4, 6, 8, 10, 12, 1
 - Amends the name of the test scale to "test_scale" (previously "test")
 - Amends the 4th note in the test scale to 7 (previously 6)
-- Deletes the test scale a test scale
+- Deletes the test scale
 
 
 ```
