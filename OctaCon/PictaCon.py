@@ -69,6 +69,7 @@ def Run(
 ################
 
 #EXAMPLE
+'''
 Run(filename="Tester2.png", scale="Major", root="C",
         remove0=True,
         length = 6,
@@ -82,6 +83,7 @@ Run(filename="Tester2.png", scale="Major", root="C",
         notelength = 1/8,
         veloctiy = 50
         )
+'''
 
 
 
