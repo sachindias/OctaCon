@@ -69,6 +69,7 @@ def Run(
 ################
 
 #EXAMPLE
+'''
 Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
         remove0=True,
         length = 0,
@@ -82,4 +83,4 @@ Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C",
         notelength = 1/4,
         veloctiy = 50
         )
-
+'''

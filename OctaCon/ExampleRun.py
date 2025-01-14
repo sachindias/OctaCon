@@ -5,6 +5,7 @@ import Symbols
 
 
 #TextaCon.Run("₸H1Ⓢ ↿S ÅN ε×4M☧しE", "major", "C", consoleprint=True, remove0 = True)
+#TextaCon.Run("THIS I//${sigma}$ //${A}$//${N}$ EXAM//${Rho}$LE", "major", "C", consoleprint=True, remove0 = True)
 #PictaCon.Run("Tester2.png", "Major", "C", consoleprint=True, remove0 = True)
 
 #Scales.Add("test", [1,2,3,4,5,6,7,8])
