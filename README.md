@@ -46,7 +46,7 @@ Import PictaCon
 ```
 
 In order to use TextaCon you need a phrase, scale type and root note.
-It can be implemented as below for the :
+It can be implemented as below:
 
 ```
 TextaCon.Run(phrase="₸H1Ⓢ ↿S ÅN ε×4M☧しE", scale="Major", root="C")
